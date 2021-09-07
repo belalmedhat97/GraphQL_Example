@@ -1,0 +1,30 @@
+//
+//  GraphQLViewModel.swift
+//  GraphQL APP
+//
+//  Created by belal medhat on 07/09/2021.
+//
+
+import Foundation
+class GraphQLViewModel:ObservableObject{
+    
+//#### API configurator for accesing countires data ((CountryDetailsQuery)) ####
+    
+@Published var CountryData = [CountryDetailsQuery.Data.Country]()
+    init(){
+        CallNetwork()
+    }
+ private func CallNetwork(){
+    Network.shared.client.fetch(query: CountryDetailsQuery()) { result in
+    switch result {
+    case .success(let graphQLResult):
+      print("Success! Result: \(graphQLResult)")
+        self.CountryData = graphQLResult.data?.countries ?? []
+
+    case .failure(let error):
+      print("Failure! Error: \(error)")
+    }
+    }
+    }
+    
+}

@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct GraphQL_APPApp: App {
+struct GraphQL_App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CountryView()
         }
     }
 }
