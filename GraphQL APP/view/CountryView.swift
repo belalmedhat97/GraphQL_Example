@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct CountryView: View {
+    @State var isLoading:Bool = false
     @ObservedObject var GraphQLVM = GraphQLViewModel()
     var body: some View {
+        
+        VStack(){
+            ZStack(){
         ScrollView(){
         VStack(){
             ForEach(0..<GraphQLVM.CountryData.count,id:\.self) { row in
@@ -30,7 +34,19 @@ struct CountryView: View {
         }
         
         
-    }.frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height - 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).padding()
+    }.frame(width: UIScreen.main.bounds.width - 100, height: 700, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).padding()
+                if GraphQLVM.isLoading == true {
+                    ProgressView().frame(width: 40, height: 40, alignment: .center).progressViewStyle(CircularProgressViewStyle(tint: Color.purple))
+                }else{
+                    
+                }
+            }
+            Button(action: {
+                GraphQLVM.CallNetwork()
+            }, label: {
+                Text("REQUEST COUNTIRES").foregroundColor(Color(#colorLiteral(red: 0.3686963022, green: 1, blue: 0.8210601211, alpha: 1))).frame(width: 200, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).padding().background(Color.black).cornerRadius(10).minimumScaleFactor(0.5).textCase(.uppercase)
+            })
+        }.frame(width: UIScreen.main.bounds.width - 100, height: UIScreen.main.bounds.height - 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).padding()
     }
 }
 
